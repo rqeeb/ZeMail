@@ -4,7 +4,7 @@ import "./styles.css";
 //return random mail
 function genLocalMail() {
   const user = Math.random().toString(36).slice(2, 10);
-  return '${user}@mails.zepmail.xyz';
+  return "${user}@mails.zepmail.xyz";
 }
 
 function App() {
@@ -51,11 +51,29 @@ function App() {
             {theme === "dark" ? "Dark" : "Light"}
           </button>
           <button className="pill primary" onClick={refreshMail}>
-            New address
-            cc
+            New address cc
           </button>
         </div>
       </header>
+
+      
+      <main className="container">
+        <section className="heroCard">
+          <div className="heroTitle">Your Temporary Email Address</div>
+
+          <div className="emailRow">
+            <div className="emailBox">
+              <span className="mono">{email}</span>
+            </div>
+
+            <button className="iconBtn" title="Copy" onClick={copyEmail}>
+              Copy
+            </button>
+            <button className="iconBtn" title="Refresh" onClick={refreshEmail}>
+              Refresh
+            </button>
+          </div>
+
     </div>
   );
 }
