@@ -10,9 +10,8 @@ function genLocalMail() {
 //Loader
 function Loader({ theme }) {
   const logoSrc =
-    theme == "dark"
-      ? "public\epMail-darkmode.svg"
-      : "public\epMail-lightmode.svg";
+    theme === "dark" ? "/epMail-darkmode.svg" : "/epMail-lightmode.svg";
+
   return (
     <div className="loaderScreen" aria-label="Loading">
       <img
@@ -30,19 +29,29 @@ function App() {
   const [theme, setTheme] = useState(
     () => localStorage.getItem("theme") || "dark",
   );
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [email, setEmail] = useState(() => genLocalMail());
   const [messages, setMessages] = useState([]);
   const [active, setActive] = useState(null);
+  const hasMsgs = useMemo(() => messages.length > 0, [messages]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("theme", theme);
   }, [theme]);
 
- 
+  //preload logos
+  useEffect(() => {
+    const a = new Image();
+    const b = new Image();
+    a.src = "/epMail-darkmode.svg";
+    b.src = "/epMail-lightmode.svg";
+  }, []);
 
-  const hasMsgs = useMemo(() => messages.length > 0, [messages]);
+  useEffect(() => {
+    const t = setTimeout(() => setIsLoading(false), 2500);
+    return () => clearTimeout(t);
+  }, []);
 
   async function copyEmail() {
     await navigator.clipboard.writeText(email);
@@ -51,8 +60,13 @@ function App() {
   function refreshEmail() {
     setEmail(genLocalMail());
     setMessages([]);
+
     setActive(null);
   }
+  const logoSrc =
+    theme === "dark" ? "/epMail-darkmode.svg" : "/epMail-lightmode.svg";
+
+  if (isLoading) return <Loader theme={theme} />;
 
   return (
     <div className="page">
@@ -105,8 +119,8 @@ function App() {
 
             {!hasMsgs ? (
               <div className="empty">
-                No messages yet. Send an email to{" "}
-                <span className="mono">{email}</span>
+                ages yet.
+                <div className="loading-bar"></div>
               </div>
             ) : (
               <div className="list">
@@ -163,7 +177,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="footer">Made with {"<3"}</footer>
+      <footer className="footer">Made with {":3"}</footer>
     </div>
   );
 }
