@@ -31,6 +31,7 @@ function App() {
   const [active, setActive] = useState(null);
   const hasMsgs = useMemo(() => messages.length > 0, [messages]);
 
+    const logoSrc = theme === "dark" ? "/epMail-darkmode.svg" : "/epMail-lightmode.svg";
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("theme", theme);
