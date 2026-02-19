@@ -7,11 +7,30 @@ function genLocalMail() {
   return `${user}@mails.zepmail.xyz`;
 }
 
+//Loader
+function Loader({ theme }) {
+  const logoSrc =
+    theme == "dark"
+      ? "public\epMail-darkmode.svg"
+      : "public\epMail-lightmode.svg";
+  return (
+    <div className="loaderScreen" aria-label="Loading">
+      <img
+        className="loaderLogo"
+        src={logoSrc}
+        alt="ZepMail"
+        draggable="false"
+      />
+    </div>
+  );
+}
+
 function App() {
   // States
   const [theme, setTheme] = useState(
     () => localStorage.getItem("theme") || "dark",
   );
+  const [isLoading, setLoading] = useState(true);
   const [email, setEmail] = useState(() => genLocalMail());
   const [messages, setMessages] = useState([]);
   const [active, setActive] = useState(null);
@@ -20,6 +39,8 @@ function App() {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+ 
 
   const hasMsgs = useMemo(() => messages.length > 0, [messages]);
 
