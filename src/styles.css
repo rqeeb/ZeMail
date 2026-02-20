@@ -153,4 +153,77 @@ body {
     transform: rotate(360deg);
   }
 }
-gi
+
+.brandLogo {
+  height: 64px;
+  width: auto;
+  display: block;
+  user-select: none;
+  cursor: pointer;
+}
+
+.wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 36px 18px 24px;
+}
+
+.hero {
+  text-align: center;
+  padding: 18px 0 22px;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 52px);
+  letter-spacing: -0.7px;
+  font-weight: 800;
+}
+
+.sub {
+  margin: 12px auto 0;
+  max-width: 620px;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 15px;
+}
+
+.emailCard {
+  margin: 22px auto 0;
+  max-width: 760px;
+  padding: 14px;
+  border: 2px solid rgba(193, 47, 233, 0.1);
+  border-radius: 16px;
+  background: rgba(193, 47, 233, 0.04);
+}
+:root[data-theme="dark"] .emailCard {
+  background: rgba(193, 47, 233, 0.08);
+  border-color: rgba(193, 47, 233, 0.18);
+}
+
+.emailRow {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 720px) {
+  .emailRow {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
+
+.emailField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  padding: 14px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow);
+  min-height: 52px;
+}
+

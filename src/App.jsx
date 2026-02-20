@@ -38,13 +38,15 @@ function App() {
       subject: "The OTP for x service is..",
       body: "The OTP for x service is 7869 - Thanks",
       time: "Just now",
-    },{
+    },
+    {
       id: "demo-1",
       from: "Raqeeb",
       subject: "The OTP for x service is..",
-      body: "The OTP for x service is 7869 - Thanks",
+      body: "The OTP for x service is 7869 - ThanksThe OTP for x service is 7869 - ThanksThe OTP for x service is 7869 - ThanksThe OTP for x service is 7869 - Thanks",
       time: "Just now",
-    },{
+    },
+    {
       id: "demo-1",
       from: "Raqeeb",
       subject: "The OTP for x service is..",
@@ -332,13 +334,12 @@ function App() {
                 </button>
               </div>
             ) : (
-              <>
+              <div className={`inboxLayout ${active ? "hasActive" : ""}`}>
                 <div className="list">
                   {messages.map((m) => (
                     <button
-                      type="button"
                       key={m.id}
-                      className="row"
+                      className={`row ${active?.id === m.id ? "activeRow" : ""}`}
                       onClick={() => setActive(m)}
                     >
                       <div className="rowFrom">{m.from}</div>
@@ -348,23 +349,31 @@ function App() {
                   ))}
                 </div>
 
-                {active && (
-                  <div className="msgPreview">
-                    <div className="msgTop">
-                      <div className="msgSubject">{active.subject}</div>
-                      <button
-                        type="button"
-                        className="miniIconBtn"
-                        onClick={() => setActive(null)}
-                      >
-                        Close
-                      </button>
+                <div className="previewArea">
+                  {!active ? (
+                    <div className="previewEmpty">
+                      Select a message to read it
                     </div>
-                    <div className="msgFrom">From: {active.from}</div>
-                    <div className="msgBody">{active.body}</div>
-                  </div>
-                )}
-              </>
+                  ) : (
+                    <div className="msgPreview">
+                      <div className="msgHeader">
+                        <div>
+                          <div className="msgSubject">{active.subject}</div>
+                          <div className="msgFrom">{active.from}</div>
+                        </div>
+                        <button
+                          className="miniIconBtn"
+                          onClick={() => setActive(null)}
+                        >
+                          ✕
+                        </button>
+                      </div>
+
+                      <div className="msgBody">{active.body}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
             )}
           </div>
         </section>
