@@ -35,6 +35,8 @@ function App() {
   const [active, setActive] = useState(null);
   const hasMsgs = useMemo(() => messages.length > 0, [messages]);
   const [spinning, setSpinning] = useState(false);
+  const [refreshingInbox, setRefreshingInbox] = useState(false);
+  const [refreshingPanel, setRefreshingPanel] = useState(false);
 
   const logoSrc =
     theme === "dark" ? "/epMail-darkmode.svg" : "/epMail-lightmode.svg";
@@ -71,7 +73,6 @@ function App() {
     }, 600);
   }
 
-  const [refreshingInbox, setRefreshingInbox] = useState(false);
   function refreshInbox() {
     if (refreshingInbox) return;
 
@@ -80,6 +81,17 @@ function App() {
     setTimeout(() => {
       // TODO: Fetch()
       setRefreshingInbox(false);
+    }, 700);
+  }
+
+  function refreshPanel() {
+    if (refreshingPanel) return;
+
+    setRefreshingPanel(true);
+
+    setTimeout(() => {
+      // TODO: Fetch()
+      setRefreshingPanel(false);
     }, 700);
   }
 
@@ -189,9 +201,10 @@ function App() {
             <div className="panelTitle">Inbox</div>
 
             <button
-              className="miniIconBtn"
-              onClick={refreshInbox}
+              className={`miniIconBtn ${refreshingPanel ? "spin" : ""}`}
+              onClick={refreshPanel}
               aria-label="Refresh inbox"
+              disabled={refreshingPanel}
             >
               <svg
                 viewBox="0 0 24 24"
