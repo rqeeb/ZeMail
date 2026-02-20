@@ -34,6 +34,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [active, setActive] = useState(null);
   const hasMsgs = useMemo(() => messages.length > 0, [messages]);
+  const [spinning, setSpinning] = useState(false);
 
   const logoSrc =
     theme === "dark" ? "/epMail-darkmode.svg" : "/epMail-lightmode.svg";
@@ -60,13 +61,26 @@ function App() {
   }
 
   function changeEmail() {
-    setEmail(genLocalMail());
-    setMessages([]);
-    setActive(null);
+    setSpinning(true);
+
+    setTimeout(() => {
+      setEmail(genLocalMail());
+      setMessages([]);
+      setActive(null);
+      setSpinning(false);
+    }, 600);
   }
 
+  const [refreshingInbox, setRefreshingInbox] = useState(false);
   function refreshInbox() {
-    // TODO:
+    if (refreshingInbox) return;
+
+    setRefreshingInbox(true);
+
+    setTimeout(() => {
+      // TODO: Fetch()
+      setRefreshingInbox(false);
+    }, 700);
   }
 
   /// Break -------------------------- Point
@@ -140,9 +154,11 @@ function App() {
                 </button>
               </div>
 
-              <button className="btn" onClick={changeEmail}>
-                <span className="btnIcon" aria-hidden="true">
-                  {/* refresh icon */}
+              <button className="btn refreshBtn" onClick={changeEmail}>
+                <span
+                  className={`btnIcon ${spinning ? "spin" : ""}`}
+                  aria-hidden="true"
+                >
                   <svg viewBox="0 0 24 24" width="18" height="18">
                     <path
                       d="M20 12a8 8 0 1 1-2.34-5.66"
@@ -161,7 +177,7 @@ function App() {
                     />
                   </svg>
                 </span>
-                Change email
+                Refresh
               </button>
             </div>
           </div>
@@ -252,8 +268,15 @@ function App() {
                   Refresh your inbox or enjoy the peace and quiet.
                 </div>
 
-                <button className="btn ghost" onClick={refreshInbox}>
-                  <span className="btnIcon" aria-hidden="true">
+                <button
+                  className="btn ghost"
+                  onClick={refreshInbox}
+                  disabled={refreshingInbox}
+                >
+                  <span
+                    className={`btnIcon ${refreshingInbox ? "spin" : ""}`}
+                    aria-hidden="true"
+                  >
                     <svg viewBox="0 0 24 24" width="18" height="18">
                       <path
                         d="M20 12a8 8 0 1 1-2.34-5.66"
