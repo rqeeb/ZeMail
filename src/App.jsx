@@ -69,8 +69,6 @@ function App() {
     // TODO:
   }
 
-  if (isLoading) return <Loader logoSrc={logoSrc} />;
-
   /// Break -------------------------- Point
   return (
     <div className="page">
@@ -80,6 +78,7 @@ function App() {
           <img
             className="brandLogo"
             src={logoSrc}
+            onClick={() => window.location.reload()}
             alt="ZepMail"
             draggable="false"
           />
@@ -168,73 +167,134 @@ function App() {
           </div>
         </section>
 
-
         {/* --------------Here fixes req------------ */}
-        <section className="grid">
-          <section className="card">
-            <div className="cardTitle">Inbox</div>
+        <section className="panel">
+          <div className="panelHead">
+            <div className="panelTitle">Inbox</div>
 
+            <button
+              className="miniIconBtn"
+              onClick={refreshInbox}
+              aria-label="Refresh inbox"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                aria-hidden="true"
+              >
+                <path
+                  d="M20 12a8 8 0 1 1-2.34-5.66"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M20 4v6h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div className="panelBody">
             {!hasMsgs ? (
               <div className="empty">
-                No messages yet.
-                <div className="loading-bar"></div>
+                <div className="emptyArt" aria-hidden="true">
+                  <svg viewBox="0 0 220 140" width="220" height="140">
+                    <path
+                      d="M30 52c0-8 6-14 14-14h132c8 0 14 6 14 14v64c0 8-6 14-14 14H44c-8 0-14-6-14-14V52Z"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      opacity="0.22"
+                    />
+                    <path
+                      d="M38 56l72 46 72-46"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      opacity="0.28"
+                    />
+                    <circle
+                      cx="170"
+                      cy="34"
+                      r="12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      opacity="0.22"
+                    />
+                    <path
+                      d="M154 34h32"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      opacity="0.22"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M170 18v32"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      opacity="0.22"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+
+                <div className="emptyTitle">You have 0 new messages</div>
+                <div className="emptySub">
+                  Refresh your inbox or enjoy the peace and quiet.
+                </div>
+
+                <button className="btn ghost" onClick={refreshInbox}>
+                  <span className="btnIcon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18">
+                      <path
+                        d="M20 12a8 8 0 1 1-2.34-5.66"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                      />
+                      <path
+                        d="M20 4v6h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  Refresh
+                </button>
               </div>
             ) : (
               <div className="list">
                 {messages.map((m) => (
                   <button
                     key={m.id}
-                    className="msg"
+                    className="row"
                     onClick={() => setActive(m)}
                   >
-                    <div className="msgTop">
-                      <span className="msgFrom">{m.from}</span>
-                      <span className="msgTime">{m.time}</span>
-                    </div>
-                    <div className="msgSub">{m.subject}</div>
-                    <div className="msgPrev">{m.preview}</div>
+                    <div className="rowFrom">{m.from}</div>
+                    <div className="rowSub">{m.subject}</div>
+                    <div className="rowMeta">{m.time}</div>
                   </button>
                 ))}
               </div>
             )}
-          </section>
-
-          <section className="card">
-            <div className="cardTitle">Message</div>
-
-            {!active ? (
-              <div className="empty">Click a message to view it.</div>
-            ) : (
-              <div>
-                <div className="meta">
-                  <div className="kv">
-                    <div className="k">From</div>
-                    <div className="v">{active.from}</div>
-                  </div>
-                  <div className="kv">
-                    <div className="k">Subject</div>
-                    <div className="v">{active.subject}</div>
-                  </div>
-                  <div className="kv">
-                    <div className="k">Time</div>
-                    <div className="v">{active.time}</div>
-                  </div>
-                </div>
-
-                <div className="body mono">{active.body}</div>
-
-                <div style={{ marginTop: 12 }}>
-                  <button className="btn" onClick={() => setActive(null)}>
-                    Close
-                  </button>
-                </div>
-              </div>
-            )}
-          </section>
+          </div>
         </section>
-      </main>
 
-      <footer className="footer">Made with {":3"}</footer>
+        <footer className="footer">Made with {":3"}</footer>
+      </main>
     </div>
   );
 }
