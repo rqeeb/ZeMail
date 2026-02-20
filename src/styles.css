@@ -127,7 +127,9 @@ body {
   border: none;
   background: transparent;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .miniIconBtn:hover {
@@ -139,13 +141,16 @@ body {
   cursor: not-allowed;
 }
 
-
 .miniIconBtn.spin svg {
   animation: spinPanel 0.7s linear;
 }
 
 @keyframes spinPanel {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-
+gi

@@ -31,7 +31,27 @@ function App() {
   );
   const [isLoading, setIsLoading] = useState(true);
   const [email, setEmail] = useState(() => genLocalMail());
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      id: "demo-1",
+      from: "Raqeeb",
+      subject: "The OTP for x service is..",
+      body: "The OTP for x service is 7869 - Thanks",
+      time: "Just now",
+    },{
+      id: "demo-1",
+      from: "Raqeeb",
+      subject: "The OTP for x service is..",
+      body: "The OTP for x service is 7869 - Thanks",
+      time: "Just now",
+    },{
+      id: "demo-1",
+      from: "Raqeeb",
+      subject: "The OTP for x service is..",
+      body: "The OTP for x service is 7869 - Thanks",
+      time: "Just now",
+    },
+  ]);
   const [active, setActive] = useState(null);
   const hasMsgs = useMemo(() => messages.length > 0, [messages]);
   const [spinning, setSpinning] = useState(false);
@@ -115,7 +135,7 @@ function App() {
             aria-label="Toggle theme"
             title="Toggle theme"
           >
-            {theme === "dark" ? "Dark Mode" : "Light Mode"}
+            {theme === "dark" ? "Light Mode" : "Dark Mode"}
           </button>
         </div>
       </header>
@@ -312,19 +332,39 @@ function App() {
                 </button>
               </div>
             ) : (
-              <div className="list">
-                {messages.map((m) => (
-                  <button
-                    key={m.id}
-                    className="row"
-                    onClick={() => setActive(m)}
-                  >
-                    <div className="rowFrom">{m.from}</div>
-                    <div className="rowSub">{m.subject}</div>
-                    <div className="rowMeta">{m.time}</div>
-                  </button>
-                ))}
-              </div>
+              <>
+                <div className="list">
+                  {messages.map((m) => (
+                    <button
+                      type="button"
+                      key={m.id}
+                      className="row"
+                      onClick={() => setActive(m)}
+                    >
+                      <div className="rowFrom">{m.from}</div>
+                      <div className="rowSub">{m.subject}</div>
+                      <div className="rowMeta">{m.time}</div>
+                    </button>
+                  ))}
+                </div>
+
+                {active && (
+                  <div className="msgPreview">
+                    <div className="msgTop">
+                      <div className="msgSubject">{active.subject}</div>
+                      <button
+                        type="button"
+                        className="miniIconBtn"
+                        onClick={() => setActive(null)}
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <div className="msgFrom">From: {active.from}</div>
+                    <div className="msgBody">{active.body}</div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </section>
