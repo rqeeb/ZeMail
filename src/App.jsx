@@ -98,7 +98,10 @@ function App() {
     }, 700);
   }
 
-  
+  //   if (isLoading) {
+  //   return <Loader logoSrc={logoSrc} />;
+  // }
+
   /// Break -------------------------- Point
   return (
     <div className="page">
@@ -210,7 +213,6 @@ function App() {
           refreshingInbox={refreshingInbox}
           refreshInbox={refreshInbox}
         />
-
         <footer className="footer">Made with {":3"}</footer>
       </main>
     </div>
@@ -219,6 +221,7 @@ function App() {
 
 export default App;
 
-// TODO: Seprate Components/Functions
+// TODO: Seprate Components/Functions [Done]
+// TODO: Complete CSS [Done]
 // TODO: Backend
-// TODO: Complete CSS
+
