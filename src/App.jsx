@@ -20,6 +20,7 @@ function App() {
       body: "The OTP for x service is 7869 - Thanks",
       time: "Just now",
     },
+
     {
       id: "demo-1",
       from: "Raqeeb",
@@ -27,6 +28,7 @@ function App() {
       body: "The OTP for x service is 7869 - ThanksThe OTP for x service is 7869 - ThanksThe OTP for x service is 7869 - ThanksThe OTP for x service is 7869 - Thanks",
       time: "Just now",
     },
+
     {
       id: "demo-1",
       from: "Raqeeb",
@@ -34,6 +36,7 @@ function App() {
       body: "The OTP for x service is 7869 - Thanks",
       time: "Just now",
     },
+    
   ]);
   const [active, setActive] = useState(null);
   const hasMsgs = useMemo(() => messages.length > 0, [messages]);
@@ -224,5 +227,3 @@ export default App;
 // TODO: Seprate Components/Functions [Done]
 // TODO: Complete CSS [Done]
 // TODO: Backend
-
-
