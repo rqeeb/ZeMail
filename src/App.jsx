@@ -86,6 +86,8 @@ function App() {
 
     setTimeout(() => {
       // TODO: Fetch()
+      const data = fetch("localhost:2022");
+      console.log(data);
       setRefreshingInbox(false);
     }, 700);
   }
