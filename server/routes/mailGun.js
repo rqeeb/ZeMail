@@ -1,13 +1,11 @@
 const { Router } = require("express");
 const multer = require("multer");
 
-const router = Router();
+const mailGun = mailGun();
 const upload = multer();
 
-router.post("/inbound", upload.any(), (req, res) => {
- 
+mailGun.post("/inbound", upload.any(), (req, res) => {
   const body = req.body ?? {};
-  console.log("inbound hit");
 
   const recipient = body.recipient;
   const sender = body.sender;
@@ -17,8 +15,7 @@ router.post("/inbound", upload.any(), (req, res) => {
   console.log({ recipient, sender, subject });
   console.log("plain:", (bodyPlain || "").slice(0, 120));
 
-  
   return res.status(200).send("ok");
 });
 
-module.exports = { mailGun: router };
+module.exports = { mailGun: mailGun };
