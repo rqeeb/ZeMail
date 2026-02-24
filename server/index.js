@@ -1,14 +1,16 @@
-require("dotenv").config();
+// require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
 const app = express();
 PORT = process.env.PORT || 2022;
 const { mailRouter } = require("./routes/mail");
+const { mailGun } = require("./routes/mailGun.js");
 
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1/", mailRouter);
+app.use("/mailgun", mailGun);
 
 app.get("/health",(req,res) =>{
   res.json({
