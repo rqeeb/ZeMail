@@ -1,5 +1,3 @@
-// require("dotenv").config();
-
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -9,10 +7,11 @@ const { mailGun } = require("./routes/mailGun.js");
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/v1/", mailRouter);
-app.use("/mailgun", mailGun);
+app.use(express.urlencoded({ extended: true }));
+app.use("/api/v1/mailgun", mailGun); // /api/v1/mailgun/inbound
 
-app.get("/health",(req,res) =>{
+
+app.get("/health", (req, res) => {
   res.json({
     ok: true,
   });

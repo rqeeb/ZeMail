@@ -5,16 +5,19 @@ const router = Router();
 const upload = multer();
 
 router.post("/inbound", upload.any(), (req, res) => {
-  const recipient = req.body.recipient;
-  const sender = req.body.sender;
-  const subject = req.body.subject;
-  const bodyPlain = req.body["body-plain"];
-  const bodyHtml = req.body["body-html"];
+ 
+  const body = req.body ?? {};
+  console.log("inbound hit");
 
-  console.log("Mailgun inbound hit!");
+  const recipient = body.recipient;
+  const sender = body.sender;
+  const subject = body.subject;
+  const bodyPlain = body["body-plain"];
+
   console.log({ recipient, sender, subject });
-  console.log("Body plain:", (bodyPlain || "").slice(0, 120));
+  console.log("plain:", (bodyPlain || "").slice(0, 120));
 
+  
   return res.status(200).send("ok");
 });
 
