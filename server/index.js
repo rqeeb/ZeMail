@@ -5,7 +5,7 @@ const { connectDB } = require("./db");
 const Message = require("./models/message");
 
 const inboxRoutes = require("./routes/inbox");
-const mailgunRoutes = require("./routes/mailgun");
+const mailgunRoutes = require("./routes/mailGun");
 
 const app = express();
 
