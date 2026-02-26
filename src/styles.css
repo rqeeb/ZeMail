@@ -587,3 +587,19 @@ body {
   font-size: 14px;
   white-space: pre-wrap;
 }
+
+.previewArea {
+  min-height: 0;
+}
+
+.msgPreview {
+  flex: 1;
+  min-height: 0;
+}
+
+.msgBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
